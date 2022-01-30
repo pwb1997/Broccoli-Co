@@ -9,8 +9,8 @@ interface RequestInviteModalProps {
 }
 
 export enum Stage {
-    'request',
-    'success',
+    request,
+    success,
 }
 
 const RequestInviteModal = ({ isVisible, hide }: RequestInviteModalProps) => {
@@ -23,13 +23,19 @@ const RequestInviteModal = ({ isVisible, hide }: RequestInviteModalProps) => {
 
     return isVisible
         ? createPortal(
-              <div className="fixed top-0 flex items-center justify-center w-screen h-screen bg-black/50 backdrop-blur-sm">
+              <div
+                  role="dialog"
+                  className="fixed top-0 flex items-center justify-center w-screen h-screen bg-black/50 backdrop-blur-sm"
+              >
                   <div className="w-5/6 max-w-md p-8 bg-white border border-black h-[28rem]">
-                      <RequestStage
-                          isVisible={stage === Stage.request}
-                          onSuccess={() => setStage(Stage.success)}
-                      />
-                      <SuccessStage isVisible={stage === Stage.success} onOk={() => onOk()} />
+                      {
+                          {
+                              [Stage.request]: (
+                                  <RequestStage onSuccess={() => setStage(Stage.success)} />
+                              ),
+                              [Stage.success]: <SuccessStage onOk={onOk} />,
+                          }[stage]
+                      }
                   </div>
               </div>,
               document.body,

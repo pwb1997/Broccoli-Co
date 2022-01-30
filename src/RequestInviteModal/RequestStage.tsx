@@ -1,11 +1,10 @@
 import { useState } from 'react';
 
 interface RequestStageProps {
-    isVisible: boolean;
     onSuccess: () => void;
 }
 
-const RequestStage = ({ isVisible, onSuccess }: RequestStageProps) => {
+const RequestStage = ({ onSuccess }: RequestStageProps) => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [confirmEmail, setConfirmEmail] = useState('');
@@ -17,7 +16,7 @@ const RequestStage = ({ isVisible, onSuccess }: RequestStageProps) => {
 
     const inputClassName = 'px-4 py-2 w-full border border-black';
 
-    return isVisible ? (
+    return (
         <div className="flex flex-col items-center w-full h-full gap-8">
             <span className="text-2xl italic font-bold text-gray-500">Request an invite</span>
             <div className="w-8 border-t border-gray-500" />
@@ -59,7 +58,7 @@ const RequestStage = ({ isVisible, onSuccess }: RequestStageProps) => {
                 </div>
             </form>
         </div>
-    ) : null;
+    );
 };
 
 export default RequestStage;

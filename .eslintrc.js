@@ -8,6 +8,9 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
         'plugin:react/jsx-runtime',
+        'plugin:testing-library/react',
+        'plugin:testing-library/dom',
+        'plugin:jest-dom/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -22,7 +25,7 @@ module.exports = {
             version: 'detect',
         },
     },
-    plugins: ['react', '@typescript-eslint', 'unused-imports'],
+    plugins: ['react', '@typescript-eslint', 'unused-imports', 'testing-library', 'jest-dom'],
     rules: {
         'no-unused-vars': 'off',
         'unused-imports/no-unused-imports': 'error',
@@ -36,4 +39,14 @@ module.exports = {
             },
         ],
     },
+    overrides: [
+        {
+            files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+            extends: [
+                'plugin:testing-library/react',
+                'plugin:testing-library/dom',
+                'plugin:jest-dom/recommended',
+            ],
+        },
+    ],
 };
