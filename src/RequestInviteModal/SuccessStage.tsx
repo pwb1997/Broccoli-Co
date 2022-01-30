@@ -1,10 +1,9 @@
 interface SuccessStageProps {
-    isVisible: boolean;
     onOk: () => void;
 }
 
-const SuccessStage = ({ isVisible, onOk }: SuccessStageProps) => {
-    return isVisible ? (
+const SuccessStage = ({ onOk }: SuccessStageProps) => {
+    return (
         <div className="flex flex-col items-center w-full h-full gap-8">
             <span className="text-2xl italic font-bold text-gray-500">All done!</span>
             <div className="w-8 border-t border-gray-500" />
@@ -20,7 +19,7 @@ const SuccessStage = ({ isVisible, onOk }: SuccessStageProps) => {
                 OK
             </button>
         </div>
-    ) : null;
+    );
 };
 
 export default SuccessStage;
