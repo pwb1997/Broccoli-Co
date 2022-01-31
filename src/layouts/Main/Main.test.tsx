@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Main from '../Main/index';
+import Main from '.';
 
 describe('<Main />', () => {
     test('should contain request invite button', async () => {
