@@ -1,8 +1,11 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/react/dont-cleanup-after-each';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import Main from '.';
 
 describe('<Main />', () => {
+    afterAll(() => cleanup());
+
     test('should contain request invite button', async () => {
         render(<Main />);
 
@@ -10,12 +13,7 @@ describe('<Main />', () => {
     });
 
     test('clicking invite button should open modal', async () => {
-        render(<Main />);
-
-        fireEvent(
-            screen.getByRole('button', { name: /request an invite/i }),
-            new MouseEvent('click', { bubbles: true }),
-        );
+        fireEvent.click(screen.getByRole('button', { name: /request an invite/i }));
 
         await screen.findByRole('dialog');
     });
