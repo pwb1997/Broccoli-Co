@@ -1,3 +1,4 @@
+import postRequestInvite from '../../apis/postRequestInvite';
 import Form, { FormSubmissionResult } from '../Form';
 import validateRequestForm from './validateRequestForm';
 
@@ -8,14 +9,18 @@ interface RequestStageProps {
 const RequestStage = ({ onSuccess }: RequestStageProps) => {
     const fieldNames = ['fullName', 'email', 'confirmEmail'] as const;
 
-    const onSubmit = async (
-        val: Record<typeof fieldNames[number], string>,
-    ): Promise<FormSubmissionResult> => {
-        await new Promise((res) => {
-            setTimeout(res, 1000);
-        }); // mock a request
-        onSuccess();
-        return { Ok: true };
+    const submitRequestForm = async ({
+        email,
+        fullName,
+    }: Record<typeof fieldNames[number], string>): Promise<FormSubmissionResult> => {
+        try {
+            await postRequestInvite({ name: fullName, email });
+
+            onSuccess();
+            return { Ok: true };
+        } catch (error) {
+            return { Ok: false, Err: (error as Error).message };
+        }
     };
 
     return (
@@ -27,7 +32,7 @@ const RequestStage = ({ onSuccess }: RequestStageProps) => {
                 submitButtonText="Send"
                 submittingButtonText="Sending, please wait..."
                 onValidate={validateRequestForm}
-                onSubmit={onSubmit}
+                onSubmit={submitRequestForm}
             />
         </div>
     );
