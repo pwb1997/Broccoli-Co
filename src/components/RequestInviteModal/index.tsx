@@ -16,6 +16,8 @@ export enum Stage {
 const RequestInviteModal = ({ isVisible, hide }: RequestInviteModalProps) => {
     const [stage, setStage] = useState(Stage.request);
 
+    const onSuccess = () => setStage(Stage.success);
+
     const onOk = () => {
         setStage(Stage.request);
         hide();
@@ -28,14 +30,8 @@ const RequestInviteModal = ({ isVisible, hide }: RequestInviteModalProps) => {
                   className="fixed top-0 flex items-center justify-center w-screen h-screen bg-black/50 backdrop-blur-sm"
               >
                   <div className="w-5/6 max-w-md p-8 bg-white border border-black h-[28rem]">
-                      {
-                          {
-                              [Stage.request]: (
-                                  <RequestStage onSuccess={() => setStage(Stage.success)} />
-                              ),
-                              [Stage.success]: <SuccessStage onOk={onOk} />,
-                          }[stage]
-                      }
+                      {stage === Stage.request ? <RequestStage {...{ onSuccess }} /> : null}
+                      {stage === Stage.success ? <SuccessStage {...{ onOk }} /> : null}
                   </div>
               </div>,
               document.body,

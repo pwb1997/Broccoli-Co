@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import RequestInviteModal from '../../components/RequestInviteModal';
+import RequestInviteModal from '../components/RequestInviteModal';
 
 const Main = () => {
     const [requestInviteModalVisible, setRequestInviteModalVisible] = useState(false);

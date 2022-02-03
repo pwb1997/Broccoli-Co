@@ -12,4 +12,8 @@ module.exports = {
     testEnvironment: 'jest-environment-jsdom',
 
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+
+    moduleNameMapper: {
+        '^lodash-es$': 'lodash',
+    },
 };
