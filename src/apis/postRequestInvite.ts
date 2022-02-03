@@ -1,4 +1,6 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import handleApiError from '../utilities/handleApiError';
+import { REQUEST_INVITE_API } from '../constants/endpoints';
 
 export interface RequestInvitePayload {
     name: string;
@@ -6,16 +8,7 @@ export interface RequestInvitePayload {
 }
 
 export const postRequestInvite = async (payload: RequestInvitePayload) => {
-    try {
-        await axios.post(
-            'https://l94wc2001h.execute-api.ap-southeast-2.amazonaws.com/prod/fake-auth',
-            payload,
-        );
-    } catch (error) {
-        const axiosError = error as AxiosError;
-
-        throw new Error(axiosError.message);
-    }
+    await axios.post(REQUEST_INVITE_API, payload).catch((error) => handleApiError(error));
 };
 
 export default postRequestInvite;

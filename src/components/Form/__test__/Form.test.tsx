@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import Form, { FormSubmissionResult, FormValidationResult } from '.';
+import Form, { FormSubmissionResult, FormValidationResult } from '..';
 
 describe('<Form />', () => {
     test('should contain input fields', async () => {

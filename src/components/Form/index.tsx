@@ -2,7 +2,7 @@ import { FormEventHandler } from 'react';
 import FormInput from './FormInput';
 import { upperFirst, lowerCase, compact } from 'lodash-es';
 import ErrorFeedback from './ErrorFeedback';
-import useFormState from './useFormState';
+import useFormState from '../../hooks/useFormState';
 
 export type FormSubmissionResult = { Ok: true } | { Ok: false; Err: string };
 
@@ -28,14 +28,14 @@ const Form = <T extends string>({
     onSubmit,
 }: FormProps<T>) => {
     const [
-        { inputValues, inputHighlights, submitting, validationAndSubmissionResult },
-        { setInputValue, removeInputHighlight, validateInputValues, submitInputValues },
+        { inputValues, fieldHighlights, submitting, validationAndSubmissionResult },
+        { setInputValue, removeFieldHighlight, validateForm, submitForm },
     ] = useFormState(fieldNames, onValidate, onSubmit);
 
     const onFormSubmit: FormEventHandler<HTMLFormElement> = async (ev) => {
         ev.preventDefault();
 
-        validateInputValues() && (await submitInputValues());
+        validateForm() && (await submitForm());
     };
 
     return (
@@ -46,8 +46,8 @@ const Form = <T extends string>({
                         value={inputValues[name]}
                         setValue={(val) => setInputValue(name, val)}
                         placeholder={upperFirst(lowerCase(name))}
-                        highlight={inputHighlights[name]}
-                        removeHighlight={() => removeInputHighlight(name)}
+                        highlight={fieldHighlights[name]}
+                        removeHighlight={() => removeFieldHighlight(name)}
                         key={name}
                     />
                 ))}

@@ -1,25 +1,30 @@
-import atLeastThreeChars from '../../regExps/atLeastThreeChars';
-import email from '../../regExps/email';
-import startWithLetter from '../../regExps/startWithLetter';
-import validChars from '../../regExps/validChars';
+import {
+    AT_LEAST_THREE_REGEXP,
+    EMAIL_REGEXP,
+    START_WITH_LETTER_REGEXP,
+    VALID_CHARS_REGEXP,
+} from '../../constants/regExps';
 import mergeValidationResults from '../../utilities/mergeValidationResults';
 import validatorFactory, { ValidationResult } from '../../utilities/validatorFactory';
 
 const validateFullName = validatorFactory([
-    { regExp: atLeastThreeChars, errorMsg: 'Full name needs to be at least 3 characters long.' },
     {
-        regExp: validChars,
+        regExp: AT_LEAST_THREE_REGEXP,
+        errorMsg: 'Full name needs to be at least 3 characters long.',
+    },
+    {
+        regExp: VALID_CHARS_REGEXP,
         errorMsg: 'Full name should only contain letters, numbers, underscores or hyphens.',
     },
     {
-        regExp: startWithLetter,
+        regExp: START_WITH_LETTER_REGEXP,
         errorMsg: 'Full name must start with a letter.',
     },
 ]);
 
 const validateEmail = validatorFactory([
     {
-        regExp: email,
+        regExp: EMAIL_REGEXP,
         errorMsg: 'Invalid email address.',
     },
 ]);

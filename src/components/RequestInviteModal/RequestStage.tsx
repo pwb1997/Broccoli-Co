@@ -1,4 +1,5 @@
 import postRequestInvite from '../../apis/postRequestInvite';
+import { ServerError } from '../../utilities/handleApiError';
 import Form, { FormSubmissionResult } from '../Form';
 import validateRequestForm from './validateRequestForm';
 
@@ -19,7 +20,11 @@ const RequestStage = ({ onSuccess }: RequestStageProps) => {
             onSuccess();
             return { Ok: true };
         } catch (error) {
-            return { Ok: false, Err: (error as Error).message };
+            if (!(error instanceof ServerError)) {
+                throw error;
+            }
+
+            return { Ok: false, Err: `${error.name}: ${error.message}` };
         }
     };
 
