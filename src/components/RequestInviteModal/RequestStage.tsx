@@ -1,7 +1,10 @@
+import Form from '../Form';
+import mergeValidationResults from '../../utilities/mergeValidationResults';
 import postRequestInvite from '../../apis/postRequestInvite';
-import { ServerError } from '../../utilities/handleApiError';
-import Form, { FormSubmissionResult } from '../Form';
-import validateRequestForm from './validateRequestForm';
+import validateConfirmEmail from '../../utilities/validateConfirmEmail';
+import validateEmail from '../../utilities/validateEmail';
+import validateFullName from '../../utilities/validateFullName';
+import wrapFormRequest from '../../utilities/wrapFormRequest';
 
 interface RequestStageProps {
     onSuccess: () => void;
@@ -10,23 +13,18 @@ interface RequestStageProps {
 const RequestStage = ({ onSuccess }: RequestStageProps) => {
     const fieldNames = ['fullName', 'email', 'confirmEmail'] as const;
 
-    const submitRequestForm = async ({
-        email,
-        fullName,
-    }: Record<typeof fieldNames[number], string>): Promise<FormSubmissionResult> => {
-        try {
-            await postRequestInvite({ name: fullName, email });
+    const validateForm = (fields: Record<typeof fieldNames[number], string>) =>
+        mergeValidationResults({
+            fullName: validateFullName(fields.fullName),
+            email: validateEmail(fields.email),
+            confirmEmail: validateConfirmEmail(fields.email, fields.confirmEmail),
+        });
 
-            onSuccess();
-            return { Ok: true };
-        } catch (error) {
-            if (error instanceof ServerError) {
-                return { Ok: false, Err: error.message };
-            }
-
-            throw error;
-        }
-    };
+    const submitForm = (fields: Record<typeof fieldNames[number], string>) =>
+        wrapFormRequest(
+            () => postRequestInvite({ name: fields.fullName, email: fields.email }),
+            onSuccess,
+        )();
 
     return (
         <div className="flex flex-col items-center w-full h-full gap-8">
@@ -36,8 +34,8 @@ const RequestStage = ({ onSuccess }: RequestStageProps) => {
                 fieldNames={fieldNames}
                 submitButtonText="Send"
                 submittingButtonText="Sending, please wait..."
-                onValidate={validateRequestForm}
-                onSubmit={submitRequestForm}
+                onValidate={validateForm}
+                onSubmit={submitForm}
             />
         </div>
     );

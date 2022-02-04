@@ -13,7 +13,7 @@ const SuccessStage = ({ onOk }: SuccessStageProps) => {
                 </p>
             </div>
             <button
-                className="w-full px-4 py-2 mb-8 text-sm font-bold text-gray-500 border border-gray-500"
+                className="w-full px-4 py-2 mb-4 text-sm font-bold text-gray-500 border border-gray-500"
                 onClick={() => onOk()}
             >
                 OK

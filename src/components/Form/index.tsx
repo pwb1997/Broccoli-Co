@@ -1,7 +1,7 @@
+import { lowerCase, upperFirst } from 'lodash-es';
+import ErrorFeedback from './ErrorFeedback';
 import { FormEventHandler } from 'react';
 import FormInput from './FormInput';
-import { upperFirst, lowerCase } from 'lodash-es';
-import ErrorFeedback from './ErrorFeedback';
 import useFormState from '../../hooks/useFormState';
 
 export type FormSubmissionResult = { Ok: true } | { Ok: false; Err: string };

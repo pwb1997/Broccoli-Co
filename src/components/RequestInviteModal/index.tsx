@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { createPortal } from 'react-dom';
 import RequestStage from './RequestStage';
 import SuccessStage from './SuccessStage';
+import { createPortal } from 'react-dom';
+import { useState } from 'react';
 
 interface RequestInviteModalProps {
     isVisible: boolean;
