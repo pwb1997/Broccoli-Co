@@ -1,7 +1,11 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import RequestInviteModal from '..';
+import axios from 'axios';
 import userEvent from '@testing-library/user-event';
+
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('<RequestInviteModal />', () => {
     test('should contain <RequestStage />', async () => {
@@ -18,6 +22,8 @@ describe('<RequestInviteModal />', () => {
     });
 
     test('should contain <SuccessStage />', async () => {
+        mockedAxios.post.mockResolvedValueOnce('OK');
+
         render(
             <RequestInviteModal
                 isVisible={true}
@@ -32,10 +38,12 @@ describe('<RequestInviteModal />', () => {
         userEvent.type(screen.getByPlaceholderText(/^confirm email/i), 'test@test.com');
         userEvent.click(screen.getByRole('button'));
 
-        await screen.findByText(/all done/i, undefined, { timeout: 15000 });
+        await screen.findByText(/all done/i);
     });
 
     test('should trigger hide', async () => {
+        mockedAxios.post.mockResolvedValueOnce('OK');
+
         const handleHide = jest.fn();
 
         render(
@@ -52,7 +60,7 @@ describe('<RequestInviteModal />', () => {
         userEvent.type(screen.getByPlaceholderText(/^confirm email/i), 'test@test.com');
         userEvent.click(screen.getByRole('button'));
 
-        const okButton = await screen.findByRole('button', { name: /ok/i }, { timeout: 15000 });
+        const okButton = await screen.findByRole('button', { name: /ok/i });
 
         userEvent.click(okButton);
 

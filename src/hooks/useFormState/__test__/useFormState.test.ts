@@ -2,6 +2,8 @@ import { act } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import useFormState from '..';
 
+const mockRequest = () => new Promise((res) => setTimeout(res));
+
 describe('Form/useFormState', () => {
     test('should contain input values', async () => {
         const fields = ['field1', 'field2', 'field3'] as const;
@@ -47,10 +49,6 @@ describe('Form/useFormState', () => {
 
     test('should update submitting', async () => {
         const fields = ['field1', 'field2', 'field3'] as const;
-
-        const mockRequest = async () => {
-            await new Promise((res) => setTimeout(res, 1000));
-        };
 
         const { result } = renderHook(() =>
             useFormState(

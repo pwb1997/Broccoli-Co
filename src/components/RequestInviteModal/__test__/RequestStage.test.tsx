@@ -1,7 +1,11 @@
 import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 import RequestStage from '../RequestStage';
+import axios from 'axios';
 import userEvent from '@testing-library/user-event';
+
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('<RequestStage />', () => {
     test('should display title', async () => {
@@ -53,6 +57,8 @@ describe('<RequestStage />', () => {
     });
 
     test('should trigger onSuccess', async () => {
+        mockedAxios.post.mockResolvedValueOnce('OK');
+
         const handleSuccess = jest.fn();
 
         render(
@@ -68,7 +74,7 @@ describe('<RequestStage />', () => {
         userEvent.type(screen.getByPlaceholderText(/^confirm email/i), 'test@test.com');
         userEvent.click(screen.getByRole('button'));
 
-        await waitFor(() => expect(handleSuccess).toBeCalled(), { timeout: 15000 });
+        await waitFor(() => expect(handleSuccess).toBeCalled());
     });
 
     test('should handle validation error', async () => {
@@ -95,6 +101,8 @@ describe('<RequestStage />', () => {
     });
 
     test('should handle server error', async () => {
+        mockedAxios.post.mockRejectedValueOnce({ message: 'request failed' });
+
         render(
             <RequestStage
                 onSuccess={() => {
@@ -108,6 +116,6 @@ describe('<RequestStage />', () => {
         userEvent.type(screen.getByPlaceholderText(/^confirm email/i), 'usedemail@airwallex.com');
         userEvent.click(screen.getByRole('button'));
 
-        await screen.findByText(/request failed/i, undefined, { timeout: 15000 });
+        await screen.findByText(/request failed/i);
     });
 });

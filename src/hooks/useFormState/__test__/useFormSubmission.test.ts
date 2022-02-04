@@ -3,7 +3,7 @@ import { FormSubmissionResult } from '../../../components/Form';
 import useFormSubmission from '../useFormSubmission';
 import { waitFor } from '@testing-library/react';
 
-const mockRequest = () => new Promise((res) => setTimeout(res, 1000));
+const mockRequest = () => new Promise((res) => setTimeout(res));
 
 describe('hooks/useFormState/useFormSubmission', () => {
     test('should trigger submission function', async () => {
@@ -56,7 +56,7 @@ describe('hooks/useFormState/useFormSubmission', () => {
             await submitForm();
         });
 
-        expect(result.current[0].submitting).toBe(false);
+        await waitFor(() => expect(result.current[0].submitting).toBe(false));
     });
 
     test('should update submission result', async () => {

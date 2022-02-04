@@ -1,22 +1,22 @@
 import { ServerError } from '../../utilities/handleApiError';
+import axios from 'axios';
 import postRequestInvite from '../postRequestInvite';
 
-const mockPayloadToResolve = {
-    name: 'test',
-    email: 'test@example.com',
-};
-
-const mockPayloadToReject = {
-    name: 'test',
-    email: 'usedemail@airwallex.com',
-};
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('apis/postRequestInvite', () => {
     test('should resolve', async () => {
-        await expect(postRequestInvite(mockPayloadToResolve)).resolves.not.toThrow();
+        mockedAxios.post.mockResolvedValueOnce('OK');
+
+        await expect(postRequestInvite({ name: '', email: '' })).resolves.not.toThrow();
     });
 
     test('should throw ServerError', async () => {
-        await expect(postRequestInvite(mockPayloadToReject)).rejects.toThrowError(ServerError);
+        mockedAxios.post.mockRejectedValueOnce({ message: 'request failed' });
+
+        await expect(postRequestInvite({ name: '', email: '' })).rejects.toThrow(
+            new ServerError('request failed'),
+        );
     });
 });

@@ -1,7 +1,11 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Main from '../Main';
+import axios from 'axios';
 import userEvent from '@testing-library/user-event';
+
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('<Main />', () => {
     test('should contain request invite button', async () => {
@@ -19,6 +23,8 @@ describe('<Main />', () => {
     });
 
     test('should close modal', async () => {
+        mockedAxios.post.mockResolvedValue('OK');
+
         render(<Main />);
 
         userEvent.click(screen.getByRole('button', { name: /request an invite/i }));
@@ -31,7 +37,7 @@ describe('<Main />', () => {
 
         userEvent.click(screen.getByRole('button', { name: /send/i }));
 
-        const okButton = await screen.findByRole('button', { name: /ok/i }, { timeout: 15000 });
+        const okButton = await screen.findByRole('button', { name: /ok/i });
 
         userEvent.click(okButton);
 

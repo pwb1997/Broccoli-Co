@@ -11,8 +11,6 @@ module.exports = {
 
     testEnvironment: 'jest-environment-jsdom',
 
-    testTimeout: 15000,
-
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 
     moduleNameMapper: {
