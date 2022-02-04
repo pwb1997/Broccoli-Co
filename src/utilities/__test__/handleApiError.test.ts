@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { REQUEST_INVITE_API } from '../../constants/endpoints';
 import handleApiError, { ServerError } from '../handleApiError';
+import { REQUEST_INVITE_API } from '../../constants/endpoints';
+import axios from 'axios';
 
 const mockPayloadToReject = { name: 'test', email: 'usedemail@airwallex.com' };
 

@@ -1,6 +1,6 @@
+import { REQUEST_INVITE_API } from '../constants/endpoints';
 import axios from 'axios';
 import handleApiError from '../utilities/handleApiError';
-import { REQUEST_INVITE_API } from '../constants/endpoints';
 
 export interface RequestInvitePayload {
     name: string;

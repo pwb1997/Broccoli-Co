@@ -38,6 +38,7 @@ module.exports = {
                 argsIgnorePattern: '^_',
             },
         ],
+        'sort-imports': 'error',
     },
     overrides: [
         {

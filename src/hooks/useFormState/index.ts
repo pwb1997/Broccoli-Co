@@ -1,9 +1,9 @@
 import { FormProps } from '../../components/Form';
+import mergeValidationAndSubmissionResult from '../../utilities/mergeValidationAndSubmissionResult';
 import useFieldHighlights from './useFieldHighlights';
 import useFormInputs from './useFormInputs';
 import useFormSubmission from './useFormSubmission';
 import useFormValidation from './useFormValidation';
-import useValidationAndSubmissionResult from './useValidationAndSubmissionResult';
 
 const useFormState = <T extends string>(
     fieldNames: readonly T[],
@@ -21,7 +21,7 @@ const useFormState = <T extends string>(
         validationResult,
     );
 
-    const validationAndSubmissionResult = useValidationAndSubmissionResult(
+    const validationAndSubmissionResult = mergeValidationAndSubmissionResult(
         validationResult,
         submissionResult,
     );

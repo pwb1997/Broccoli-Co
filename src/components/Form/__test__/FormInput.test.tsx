@@ -1,10 +1,11 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { useState } from 'react';
+import { render, screen } from '@testing-library/react';
 import FormInput from '../FormInput';
+import { useState } from 'react';
+import userEvent from '@testing-library/user-event';
 
-const FormInputInstance = ({ defaultHighlight }: { defaultHighlight: boolean }) => {
-    const [value, setValue] = useState('default');
+const MockFormInput = ({ defaultHighlight }: { defaultHighlight: boolean }) => {
+    const [value, setValue] = useState('');
     const [highlight, setHighlight] = useState(defaultHighlight);
 
     return (
@@ -20,35 +21,29 @@ const FormInputInstance = ({ defaultHighlight }: { defaultHighlight: boolean }) 
 
 describe('<FormInput />', () => {
     test('should contain placeholder', async () => {
-        render(<FormInputInstance defaultHighlight={false} />);
+        render(<MockFormInput defaultHighlight={false} />);
 
         expect(screen.getByPlaceholderText('test placeholder')).toBeInTheDocument();
     });
 
-    test('value should be default', async () => {
-        render(<FormInputInstance defaultHighlight={false} />);
+    test('should handle user input', async () => {
+        render(<MockFormInput defaultHighlight={false} />);
 
-        expect(screen.getByRole('textbox')).toHaveValue('default');
+        userEvent.type(screen.getByRole('textbox'), 'something');
+
+        expect(screen.getByRole('textbox')).toHaveValue('something');
     });
 
-    test('value should be changed on input', async () => {
-        render(<FormInputInstance defaultHighlight={false} />);
-
-        fireEvent.input(screen.getByRole('textbox'), { target: { value: 'new' } });
-
-        expect(screen.getByRole('textbox')).toHaveValue('new');
-    });
-
-    test('border should be highlighted', async () => {
-        render(<FormInputInstance defaultHighlight={true} />);
+    test('should be highlighted', async () => {
+        render(<MockFormInput defaultHighlight={true} />);
 
         expect(screen.getByRole('textbox')).toHaveClass('border-red-500');
     });
 
-    test('border highlight should be removed on value change', async () => {
-        render(<FormInputInstance defaultHighlight={true} />);
+    test('should remove highlight', async () => {
+        render(<MockFormInput defaultHighlight={true} />);
 
-        fireEvent.input(screen.getByRole('textbox'), { target: { value: '' } });
+        userEvent.type(screen.getByRole('textbox'), 'something');
 
         expect(screen.getByRole('textbox')).not.toHaveClass('border-red-500');
     });

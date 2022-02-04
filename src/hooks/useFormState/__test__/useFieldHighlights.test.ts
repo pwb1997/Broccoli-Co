@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useState } from 'react';
 import { FormValidationResult } from '../../../components/Form';
 import useFieldHighlights from '../useFieldHighlights';
+import { useState } from 'react';
 
 describe('hooks/useFormState/useFieldHighlights', () => {
     test('should contain all fields', async () => {

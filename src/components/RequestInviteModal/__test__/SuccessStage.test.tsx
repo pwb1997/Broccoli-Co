@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import SuccessStage from '../SuccessStage';
+import userEvent from '@testing-library/user-event';
 
 describe('<SuccessStage />', () => {
     test('should display success message', async () => {
@@ -15,7 +16,7 @@ describe('<SuccessStage />', () => {
         expect(screen.getByText(/all done/i)).toBeInTheDocument();
     });
 
-    test('clicking OK should trigger event', async () => {
+    test('should trigger onOk', async () => {
         const handleOk = jest.fn();
 
         const onOk = () => {
@@ -24,7 +25,7 @@ describe('<SuccessStage />', () => {
 
         render(<SuccessStage {...{ onOk }} />);
 
-        fireEvent.click(screen.getByRole('button'));
+        userEvent.click(screen.getByRole('button', { name: /ok/i }));
 
         expect(handleOk).toBeCalled();
     });

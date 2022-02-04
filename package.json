@@ -7,9 +7,11 @@
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "test": "jest",
+    "test:coverage": "jest --collect-coverage",
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "classnames": "^2.3.1",
     "lodash-es": "^4.17.21",

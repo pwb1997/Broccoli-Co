@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { FormProps, FormValidationResult } from '../../components/Form';
+import { useState } from 'react';
 
 const useFormValidation = <T extends string>(
     inputValues: Record<T, string>,

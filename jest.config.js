@@ -11,9 +11,15 @@ module.exports = {
 
     testEnvironment: 'jest-environment-jsdom',
 
+    testTimeout: 15000,
+
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 
     moduleNameMapper: {
         '^lodash-es$': 'lodash',
     },
+
+    collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+
+    coveragePathIgnorePatterns: ['src/App.tsx', 'src/main.tsx', 'd.ts'],
 };
