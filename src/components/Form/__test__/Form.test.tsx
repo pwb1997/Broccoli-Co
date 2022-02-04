@@ -3,6 +3,8 @@ import Form, { FormSubmissionResult, FormValidationResult } from '..';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+const mockRequest = () => new Promise((res) => setTimeout(res));
+
 describe('<Form />', () => {
     test('should contain input fields', async () => {
         const fields = ['field1', 'field2', 'field3'];
@@ -72,8 +74,6 @@ describe('<Form />', () => {
 
     test('should display submitting text', async () => {
         const fields = ['field1', 'field2', 'field3'];
-
-        const mockRequest = () => new Promise((res) => setTimeout(res, 1000));
 
         const onSubmit = async (): Promise<FormSubmissionResult> => {
             await mockRequest();

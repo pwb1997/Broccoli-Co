@@ -2,7 +2,7 @@ import { FormSubmissionResult } from '../../components/Form';
 import { ServerError } from '../handleApiError';
 import wrapFormRequest from '../wrapFormRequest';
 
-const mockSuccess = () => new Promise((res) => setTimeout(res, 1));
+const mockSuccess = () => new Promise((res) => setTimeout(res));
 
 const mockServerError = () =>
     new Promise((_, rej) => setTimeout(() => rej(new ServerError('error')), 1));
@@ -11,7 +11,7 @@ const mockUnhandledError = () =>
     new Promise((_, rej) =>
         setTimeout(() => {
             rej(new Error('unhandled'));
-        }, 1),
+        }),
     );
 
 const mockOnSuccess = () => {
