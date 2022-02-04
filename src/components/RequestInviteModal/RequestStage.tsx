@@ -20,11 +20,11 @@ const RequestStage = ({ onSuccess }: RequestStageProps) => {
             onSuccess();
             return { Ok: true };
         } catch (error) {
-            if (!(error instanceof ServerError)) {
-                throw error;
+            if (error instanceof ServerError) {
+                return { Ok: false, Err: error.message };
             }
 
-            return { Ok: false, Err: `${error.name}: ${error.message}` };
+            throw error;
         }
     };
 

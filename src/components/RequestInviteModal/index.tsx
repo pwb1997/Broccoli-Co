@@ -29,7 +29,7 @@ const RequestInviteModal = ({ isVisible, hide }: RequestInviteModalProps) => {
                   role="dialog"
                   className="fixed top-0 flex items-center justify-center w-screen h-screen bg-black/50 backdrop-blur-sm"
               >
-                  <div className="w-5/6 max-w-md p-8 bg-white border border-black h-[28rem]">
+                  <div className="w-5/6 max-w-md p-8 bg-white border border-black">
                       {stage === Stage.request ? <RequestStage {...{ onSuccess }} /> : null}
                       {stage === Stage.success ? <SuccessStage {...{ onOk }} /> : null}
                   </div>
