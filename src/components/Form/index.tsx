@@ -1,6 +1,6 @@
 import { FormEventHandler } from 'react';
 import FormInput from './FormInput';
-import { upperFirst, lowerCase, compact } from 'lodash-es';
+import { upperFirst, lowerCase } from 'lodash-es';
 import ErrorFeedback from './ErrorFeedback';
 import useFormState from '../../hooks/useFormState';
 
@@ -39,7 +39,7 @@ const Form = <T extends string>({
     };
 
     return (
-        <form className="flex flex-col items-center flex-1 w-full" onSubmit={onFormSubmit}>
+        <form className="relative flex flex-col items-center flex-1 w-full" onSubmit={onFormSubmit}>
             <div className="flex flex-col justify-center flex-1 w-full gap-4">
                 {fieldNames.map((name) => (
                     <FormInput
@@ -58,9 +58,7 @@ const Form = <T extends string>({
             >
                 {submitting ? submittingButtonText : submitButtonText}
             </button>
-            {!validationAndSubmissionResult.Ok ? (
-                <ErrorFeedback errors={compact(validationAndSubmissionResult.Err)} />
-            ) : null}
+            <ErrorFeedback {...{ validationAndSubmissionResult }} />
         </form>
     );
 };
