@@ -6,7 +6,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "test": "jest",
+    "test": "jest --collect-coverage",
     "test:watch": "jest --watch"
   },
   "dependencies": {
