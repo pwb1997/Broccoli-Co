@@ -1,7 +1,14 @@
 import { defineConfig } from 'vite';
+import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        legacy({
+            targets: ['defaults', 'not IE 11'],
+            modernPolyfills: ['es.object.from-entries', 'es.object.entries'],
+        }),
+    ],
+    build: { polyfillModulePreload: true },
 });
