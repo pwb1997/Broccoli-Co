@@ -2,10 +2,10 @@ const Footer = () => {
     return (
         <footer className="flex flex-row items-center justify-between w-full">
             <div className="flex flex-col gap-1 py-3 italic font-bold text-white">
-                <span className="px-4 py-1 text-sm max-w-fit from-green-900/50 bg-gradient-to-l to-slate-900/30 backdrop-blur-md whitespace-nowrap">
+                <span className="px-4 py-1 text-sm w-fit whitespace-nowrap from-green-900/50 bg-gradient-to-l to-slate-900/30 backdrop-blur-md">
                     Made with ♥ in Shanghai
                 </span>
-                <span className="px-3 py-1 text-xs max-w-fit from-green-900/50 bg-gradient-to-r to-violet-900/30 backdrop-blur-md whitespace-nowrap">
+                <span className="px-3 py-1 text-xs w-fit whitespace-nowrap from-green-900/50 bg-gradient-to-r to-violet-900/30 backdrop-blur-md">
                     © 2022 Broccoli & Co. All rights reserved.
                 </span>
             </div>
