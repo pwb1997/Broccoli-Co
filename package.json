@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --fix",
+    "lint": "eslint ./src --fix",
     "test": "jest",
     "test:coverage": "jest --collect-coverage",
     "test:watch": "jest --watch"
