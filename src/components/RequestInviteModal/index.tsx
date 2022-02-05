@@ -27,7 +27,7 @@ const RequestInviteModal = ({ isVisible, hide }: RequestInviteModalProps) => {
         ? createPortal(
               <div
                   role="dialog"
-                  className="fixed top-0 flex items-center justify-center w-screen h-screen bg-black/50 backdrop-blur-sm"
+                  className="fixed top-0 flex items-center justify-center w-screen h-screen transition-all bg-black/50 backdrop-blur-sm"
               >
                   <div className="w-5/6 max-w-md p-8 bg-white border border-black">
                       {stage === Stage.request ? <RequestStage {...{ onSuccess }} /> : null}

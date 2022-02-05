@@ -6,6 +6,7 @@ describe('<Header />', () => {
     test('should contain company name', async () => {
         render(<Header />);
 
-        expect(screen.getByRole('banner')).toHaveTextContent(/broccoli & co./i);
+        expect(screen.getByRole('banner')).toHaveTextContent(/broccoli/i);
+        expect(screen.getByRole('banner')).toHaveTextContent(/co./i);
     });
 });
