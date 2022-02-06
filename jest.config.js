@@ -20,4 +20,6 @@ module.exports = {
     collectCoverageFrom: ['src/**/*.{ts,tsx}'],
 
     coveragePathIgnorePatterns: ['src/App.tsx', 'src/main.tsx', 'd.ts'],
+
+    coverageReporters: ['json-summary', 'text', 'lcov'],
 };
